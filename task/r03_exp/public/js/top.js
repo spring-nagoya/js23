@@ -1,0 +1,5 @@
+$(function(){
+  $("subBtn").click(function(){
+
+  });
+});
