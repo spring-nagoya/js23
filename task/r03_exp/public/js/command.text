@@ -1,0 +1,4 @@
+- 依存
+ - browserify
+
+npx browserify 変換元 -o 変換先
