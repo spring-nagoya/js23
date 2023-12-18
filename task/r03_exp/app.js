@@ -1,15 +1,29 @@
 // Expressを使ったプログラム
 const exp = require('express');
+const mysql = require('mysql2');
 
-const mysql = mysql.createConnection({
-  host: 'localhost',
+
+
+const conn = mysql.createConnection({
+  host: '127.0.0.1',
   port: 3306,
-  user: 'root',
-  password: 'Passw0rd',
+  user: 'js23',
+  password: 'js23',
+  database: '2023js23db'
 });
+
+// connect to mysql
+conn.connect(function(err){
+  if (err != null) {
+    console.log('Error: ' + err.stack);
+    return ;
+  }
+  console.log('Connected as id ' + conn.threadId);
+});
+
 // Expressのインスタンスを作成
 const app = exp();
-const port = 8083;
+const port = 8080;
 
 
 app.use(exp.static('public'));
