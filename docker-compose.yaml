@@ -1,0 +1,16 @@
+version: "3"
+services:
+  js23-mysql:
+    build: ./mysql
+    container_name: js23-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: 2023js23db
+      MYSQL_USER: js23
+      MYSQL_PASSWORD: js23
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
