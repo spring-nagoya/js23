@@ -19,7 +19,28 @@ conn.connect(function(err){
     return ;
   }
   console.log('Connected as id ' + conn.threadId);
+
+  const sql = 'SELECT * FROM user';
+  conn.query(sql, (err, results, fields) =>{
+    if (err) throw err;
+    console.log(results);
+  });
+
+  conn.end(
+    function(err){
+      if (err != null) {
+        console.log('Error: ' + err.stack);
+        return ;
+      }
+      console.log('Connection closed');
+    });
 });
+
+// another connection
+// conn.connect((err) => {
+//   if (err) throw err;
+//   console.log('Connected!');
+// });
 
 // Expressのインスタンスを作成
 const app = exp();
