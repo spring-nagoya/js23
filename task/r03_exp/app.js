@@ -27,14 +27,14 @@ const server = http.createServer(function (req, res) {
   if (req.url != '/favicon.ico') {
     res.setHeader('Content-Type', 'text/plain;charset=UTF-8');
     // res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('Hello World');
+    res.write('Hello World \n');
 
     // connect to mysql
     const conn = mysql.createConnection({
       host: '127.0.0.1',
       port: 3306,
       user: 'root',
-      password: 'Passw0rd',
+      password: 'mysql',
       database: '2023js23db'
     });
 
@@ -52,7 +52,8 @@ const server = http.createServer(function (req, res) {
         if (results.length) {
           for(let result of results){
             console.log(result);
-            res.write(result.name);
+            let tmpl = result.name+ " " +result.age + "歳\n";
+            res.write(tmpl);
           }
         }
         res.end();

@@ -1,0 +1,1 @@
+CREATE TABLE 2023js23db.user (name VARCHAR(100),age INT);
