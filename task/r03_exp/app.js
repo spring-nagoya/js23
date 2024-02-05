@@ -72,6 +72,11 @@ app.get('/', (req, res) => {
     
   });
 });
+app.set('view engine', 'ejs');
+app.get("/index_ejs", (req, res) => {
+  data = { food: "からあげ" }
+  res.render("index_ejs", data);
+});
 
 // conn.end(
 //   function (err) {
