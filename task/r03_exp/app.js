@@ -29,6 +29,10 @@ app.use(exp.static('public'));
 // res.writeHead(200, {'Content-Type': 'text/html'});
 // res.write('Hello World');
 
+// var db_data = new Array();
+var db_data = [];
+
+
 // connect to mysql
 const conn = mysql.createConnection({
   host: '127.0.0.1',
@@ -60,21 +64,33 @@ app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/plain;charset=UTF-8');
   const sql = 'SELECT * FROM user';
   conn.query(sql, (err, results, fields) => {
-    if (err) throw err;
+    if (err) {
+      console.log('Error: ' + err.stack);
+      return;
+    }
     if (results.length) {
-      for (let result of results) {
-        console.log(result);
-        let tmpl = result.name+ " " +result.age + "歳\n";
-            res.write(tmpl);
+      // for (let result of results) {
+      //   console.log(result);
+      //   let tmpl = result.name + " " + result.age + "歳\n";
+      //   res.write(tmpl);
+      // }
+      for (var i = 0; i < results.length; i++) {
+        res.write(results[i].name);
+        console.log(results[i]);
+        db_data.push(results[i]);
       }
+
       res.end();
     }
-    
+
   });
 });
 app.set('view engine', 'ejs');
 app.get("/index_ejs", (req, res) => {
-  data = { food: "からあげ" }
+  data = {
+    food: "からあげ",
+    db_row: JSON.stringify(db_data)
+  }
   res.render("index_ejs", data);
 });
 
