@@ -57,6 +57,7 @@ conn.connect(function (err) {
 
 // // ルートへのアクセスを処理
 app.get('/', (req, res) => {
+  db_data = [];
   //   // res.send('Hello World.exp.js');
   // res.sendFile(__dirname + '/public/top.html');
   //   // res.render関数(jsからhtml描画)を使う場合は、
@@ -87,10 +88,34 @@ app.get('/', (req, res) => {
 });
 app.set('view engine', 'ejs');
 app.get("/index_ejs", (req, res) => {
+  var disp = "";
+  if (db_data.length) {
+    disp += "<table>";
+    // for (var i = 0; i < db_data.length; i++) {
+    //   disp += "<tr>";
+    //   disp += "<td>" + db_data[i].user_id + "</td>";
+    //   disp += "<td>" + db_data[i].name + "</td>";
+    //   disp += "<td>" + db_data[i].age + "</td>";
+    //   disp += "</tr>";
+    // }
+    db_data.forEach((key, val) => {
+      disp += "<tr>";
+      disp += "<td>" + key.user_id + "</td>";
+      disp += "<td>" + key.name + "</td>";
+      disp += "<td>" + key.age + "</td>";
+      disp += "</tr>";
+    });
+    disp += "</table>";
+  }
+  else{
+    disp = "データがありません";
+  }
+
   data = {
     food: "からあげ",
-    db_row: JSON.stringify(db_data)
-  }
+    db_row: JSON.stringify(db_data),
+    disp: disp,
+  };
   res.render("index_ejs", data);
 });
 
